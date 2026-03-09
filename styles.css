@@ -424,6 +424,7 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(139,58,82,0.1); }
   background: linear-gradient(135deg, var(--parchment) 0%, rgba(242,184,198,0.3) 100%);
   font-size: 80px;
   position: relative;
+  overflow: hidden;
 }
 
 .product-badge {
@@ -603,7 +604,7 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(139,58,82,0.1); }
 }
 
 /* ────────────────────────────────────
-   TESTIMONIAL / MESSAGE SECTION
+   ORDER SECTION
 ─────────────────────────────────────*/
 #order {
   padding: 100px 40px;
@@ -949,14 +950,15 @@ select.form-input { appearance: none; cursor: pointer; }
 #toast {
   position: fixed; bottom: 28px; right: 28px;
   background: var(--deep); color: white;
-  padding: 14px 24px; border-radius: 12px;
+  padding: 14px 24px; border-radius: 14px;
   font-family: 'Jost', sans-serif; font-size: 13px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
   z-index: 3000;
-  transform: translateY(80px); opacity: 0;
-  transition: all .4s cubic-bezier(.34,1.56,.64,1);
+  transform: translateY(80px) scale(0.9); opacity: 0;
+  transition: transform .45s cubic-bezier(.34,1.56,.64,1), opacity .35s;
+  display: flex; align-items: center; gap: 8px;
 }
-#toast.show { transform: translateY(0); opacity: 1; }
+#toast.show { transform: translateY(0) scale(1); opacity: 1; }
 
 /* ────────────────────────────────────
    MOBILE HAMBURGER MENU
@@ -973,7 +975,7 @@ select.form-input { appearance: none; cursor: pointer; }
 #hamburger span {
   display: block; width: 22px; height: 2px;
   background: var(--deep); border-radius: 2px;
-  transition: transform .3s, opacity .3s;
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .2s, background .2s;
 }
 #hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 #hamburger.open span:nth-child(2) { opacity: 0; }
@@ -1040,25 +1042,21 @@ select.form-input { appearance: none; cursor: pointer; }
    RESPONSIVE — TABLET (≤768px)
 ─────────────────────────────────────*/
 @media (max-width: 768px) {
-  /* Nav */
   nav { padding: 14px 20px; }
   .nav-links { display: none; }
   #hamburger { display: flex; }
 
-  /* Hero */
   #hero { padding: 100px 24px 80px; }
   .hero-badge { font-size: 10px; padding: 6px 16px; }
   .hero-ctas { flex-direction: column; align-items: center; }
   .hero-ctas .btn-primary,
   .hero-ctas .btn-outline { width: 100%; max-width: 300px; text-align: center; }
 
-  /* Products */
   #products { padding: 72px 20px 60px; }
   .filter-tabs { gap: 8px; }
   .filter-tab { font-size: 11px; padding: 7px 16px; }
   .products-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
 
-  /* About */
   #about > div {
     grid-template-columns: 1fr !important;
     gap: 40px !important;
@@ -1067,17 +1065,14 @@ select.form-input { appearance: none; cursor: pointer; }
   .about-frame { height: 240px; font-size: 80px; }
   .about-features { grid-template-columns: 1fr 1fr; gap: 14px; }
 
-  /* Order */
   #order { padding: 72px 20px; }
   .order-steps { gap: 24px; }
   .btn-fb-large { padding: 16px 28px; font-size: 12px; width: 100%; max-width: 360px; justify-content: center; }
 
-  /* Footer */
   footer { padding: 48px 20px 28px; }
   .footer-brand { font-size: 26px; }
   .footer-links { gap: 16px; }
 
-  /* Admin panel */
   #admin-panel { width: 100%; max-height: 100vh; border-radius: 0; }
   #admin-overlay { align-items: flex-end; }
   #admin-panel { border-radius: 20px 20px 0 0; max-height: 92vh; }
@@ -1087,10 +1082,8 @@ select.form-input { appearance: none; cursor: pointer; }
   .api-actions { flex-wrap: wrap; gap: 6px; }
   .admin-product-item { flex-wrap: wrap; }
 
-  /* Toast */
   #toast { left: 16px; right: 16px; bottom: 16px; text-align: center; }
 
-  /* Edit modal */
   .edit-box { padding: 24px 16px; }
   .edit-actions { flex-direction: column-reverse; }
   .btn-save, .btn-cancel { width: 100%; text-align: center; }
@@ -1103,12 +1096,10 @@ select.form-input { appearance: none; cursor: pointer; }
   nav { padding: 12px 16px; }
   .nav-brand-text { font-size: 18px; }
 
-  /* Hero */
   #hero { padding: 88px 16px 64px; }
   .hero-badge { display: none; }
   .hero-ctas { gap: 12px; }
 
-  /* Products */
   #products { padding: 60px 16px 48px; }
   .products-grid { grid-template-columns: 1fr; gap: 16px; }
   .product-card-img { height: 160px; font-size: 64px; }
@@ -1116,33 +1107,32 @@ select.form-input { appearance: none; cursor: pointer; }
   .filter-tabs { gap: 6px; }
   .filter-tab { font-size: 10px; padding: 6px 12px; letter-spacing: 1px; }
 
-  /* About */
   #about > div { padding: 60px 16px !important; }
   .about-frame { height: 200px; font-size: 70px; }
   .about-features { grid-template-columns: 1fr; }
   .about-body { font-size: 15px; }
 
-  /* Order */
   #order { padding: 60px 16px; }
   .order-text { font-size: 15px; }
   .order-steps { flex-direction: column; align-items: center; gap: 20px; }
   .order-step { flex-direction: row; max-width: 100%; text-align: left; gap: 16px; }
   .order-step-num { flex-shrink: 0; width: 44px; height: 44px; }
 
-  /* Footer */
   footer { padding: 40px 16px 24px; }
   .footer-brand { font-size: 22px; }
   .footer-links { flex-direction: column; gap: 12px; align-items: center; }
 
-  /* Admin */
   .admin-product-item { padding: 12px; gap: 10px; }
   .api-icon { font-size: 26px; }
   .api-actions { width: 100%; justify-content: flex-end; }
   #admin-login-screen { padding: 32px 16px; }
   .login-title { font-size: 20px; }
 
-  /* Marquee text smaller */
   .marquee-item { font-size: 10px; padding: 0 18px; }
+
+  .hero-location { font-size: 11px; padding: 8px 14px; }
+  .order-location-badge { padding: 14px 18px; flex-direction: column; text-align: center; }
+  .order-location-badge div { align-items: center; }
 }
 
 /* ────────────────────────────────────
@@ -1187,7 +1177,7 @@ select.form-input { appearance: none; cursor: pointer; }
 }
 
 /* ────────────────────────────────────
-   PETAL BURST (on FB / Order buttons)
+   PETAL BURST
 ─────────────────────────────────────*/
 .pburst {
   position: fixed;
@@ -1278,27 +1268,6 @@ select.form-input { appearance: none; cursor: pointer; }
 }
 
 /* ────────────────────────────────────
-   TOAST UPGRADE
-─────────────────────────────────────*/
-#toast {
-  position: fixed; bottom: 28px; right: 28px;
-  background: var(--deep); color: white;
-  padding: 14px 24px; border-radius: 14px;
-  font-family: 'Jost', sans-serif; font-size: 13px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-  z-index: 3000;
-  transform: translateY(80px) scale(0.9); opacity: 0;
-  transition: transform .45s cubic-bezier(.34,1.56,.64,1), opacity .35s;
-  display: flex; align-items: center; gap: 8px;
-}
-#toast.show { transform: translateY(0) scale(1); opacity: 1; }
-
-/* ────────────────────────────────────
-   MOBILE HAMBURGER LINES ANIMATE
-─────────────────────────────────────*/
-#hamburger span { transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .2s, background .2s; }
-
-/* ────────────────────────────────────
    SCROLL-TRIGGERED FADE CLASSES
 ─────────────────────────────────────*/
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s cubic-bezier(.34,1.56,.64,1); }
@@ -1340,10 +1309,18 @@ select.form-input { appearance: none; cursor: pointer; }
 }
 .img-upload-text small { font-size: 11px; opacity: 0.7; }
 
-/* Product card image when real photo uploaded */
+/* ────────────────────────────────────
+   PRODUCT CARD IMAGE — QUALITY FIX
+─────────────────────────────────────*/
 .product-card-img img {
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 .product-card-img.has-photo {
   padding: 0; font-size: 0;
@@ -1357,6 +1334,9 @@ select.form-input { appearance: none; cursor: pointer; }
   flex-shrink: 0;
 }
 
+/* ────────────────────────────────────
+   HERO LOCATION BADGE
+─────────────────────────────────────*/
 .hero-location {
   display: inline-flex; align-items: center; gap: 8px;
   margin-top: 20px; margin-bottom: 32px;
@@ -1414,10 +1394,3 @@ select.form-input { appearance: none; cursor: pointer; }
   color: rgba(242,184,198,0.5);
   margin-bottom: 20px;
 }
-
-@media (max-width: 480px) {
-  .hero-location { font-size: 11px; padding: 8px 14px; }
-  .order-location-badge { padding: 14px 18px; flex-direction: column; text-align: center; }
-  .order-location-badge div { align-items: center; }
-}
-
